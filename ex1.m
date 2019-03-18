@@ -1,9 +1,6 @@
 clearvars
 close all
 
-%Current solution
-f=@(x) -x-6*exp(1)*sinh(x)/(1-exp(1)^2); 
-
 a=0.0;
 b=1.0;
 L=b-a;
@@ -14,9 +11,8 @@ a0=1.0;
 numElem=10;
 
 %Geometry
-h=(b-a)/numElem;
-nodes=a:h:b;
-nodes=nodes';
+h=L/numElem;
+nodes=(a:h:b)';
 numNod=size(nodes,1);    
 elem=zeros(numElem,2); %Connectivity matrix
 for e=1:numElem
@@ -55,5 +51,6 @@ u(freeNod)=um;
 Q=K*u-F;
 
 %Mean value
-U=sum(u)/numNod;    
-fprintf('Sol. <u> = e%14.6e\n',U)
+U=sum(u)/numNod; 
+fprintf('Sol. Mean val.of the approx.solution,\n')
+fprintf('<u> = %12.6e\n',U)
