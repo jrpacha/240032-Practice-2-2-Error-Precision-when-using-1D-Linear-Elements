@@ -35,11 +35,17 @@ for e=1:numElem
 end
 fixedNod=[1,numNod];
 freeNod=setdiff(1:numNod,fixedNod);
-%Natural B.C.
+
+%Natural B.C.:
+%set Q to zero. Remark: Q(1) and Q(end), .i.e., the
+%components of Q corresponding to the fixed nodes are
+%computed in the post-process (see below).
 Q=zeros(numNod,1);
+
 %Essential B.C.
 u(1)=0.0;
 u(numNod)=2.0;
+
 %Reduced system
 Qm=Q(freeNod)-K(freeNod,fixedNod)*u(fixedNod);
 Fm=F(freeNod)+Qm;

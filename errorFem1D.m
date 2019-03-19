@@ -22,7 +22,7 @@ for numElem=nDiv
     nodes=a:h:b;
     nodes=nodes';
     numNod=size(nodes,1);    
-    elem=zeros(numElem,2); %Connectivity matrix
+    elem=zeros(numElem,2); %Connectivity matrix.
     for e=1:numElem
         elem(e,:)=[e,e+1];
     end
@@ -36,8 +36,8 @@ for numElem=nDiv
     for e=1:numElem
         rows=[elem(e,1),elem(e,2)];
         cols=rows;
-        x1=nodes(rows(1,1),1); %1st. node of elem e
-        x2=nodes(rows(1,2),1); %2nd. node of elem e
+        x1=nodes(rows(1,1),1); %1st. node of elem e.
+        x2=nodes(rows(1,2),1); %2nd. node of elem e.
         Fe=-h/6.0*[2*x1+x2;x1+2*x2];
         K(rows,cols)=K(rows,cols)+Ke;
         F(rows,1)=F(rows,1)+Fe;
@@ -47,8 +47,9 @@ for numElem=nDiv
     freeNod=setdiff(1:numNod,fixedNod);
     
     %Natural B.C.:
-    %None, set Q to zero (Q(1) and Q(end) are computed
-    %in the post-process (see below).
+    %set Q to zero. Remark: Q(1) and Q(end), .i.e., the
+    %components of Q corresponding to the fixed nodes are
+    %computed in the post-process (see below).
     Q=zeros(numNod,1);
     
     %Essential B.C.:
@@ -67,9 +68,9 @@ for numElem=nDiv
     
     %Error w.r.t. the exact solution.
     U=f(nodes(:,1));
-    error=norm(u-U,inf);%sub-inf norm (=max(abs(U-u)))
+    error=norm(u-U,inf);%sub-inf norm (=max(abs(U-u))).
     fprintf(1,'%9i%14.6e%14.6e\n',numElem,h,error)
 end
 fclose(fout);
-type('ErrorApprox.txt'); %print out the file to the CW
+type('ErrorApprox.txt'); %print out the file to the CW.
         
