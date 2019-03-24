@@ -1,4 +1,4 @@
-# practiquesMatlab-240032_18-03-2019
+# matlabSession-240032_18-03-2019
 
 ## Matlab session Monday 18-03-2019
 
