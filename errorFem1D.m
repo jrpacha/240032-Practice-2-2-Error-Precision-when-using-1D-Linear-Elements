@@ -2,7 +2,7 @@ clearvars
 close all
 
 %Current solution
-f=@(x) -x-6*exp(1)*sinh(x)/(1-exp(1)^2); 
+sol=@(x) -x-6*exp(1)*sinh(x)/(1-exp(1)^2); 
 
 a=0.0;
 b=1.0;
@@ -14,7 +14,7 @@ a0=1.0;
 nDiv=[5,50,500,5000];
 
 fout=fopen('ErrorApprox.txt','w');
-fprintf(1,'%10s%8s%16s\n','#Elem.','h','Error')
+fprintf(fout,'%10s%8s%16s\n','#Elem.','h','Error');
 
 for numElem=nDiv
     %Geometry
@@ -29,7 +29,7 @@ for numElem=nDiv
     %Assembly of the global system
     K=zeros(numNod);
     F=zeros(numNod,1);
-    u=zeros(numNod,1);
+    Q=zeros(numNod,1);
     Ke=a1/h*[1,-1;-1,1]+a0*h/6.0*[2,1;1,2];
         %Note: in this case in point, Ke is the same
         %      for all the elements.
@@ -50,9 +50,10 @@ for numElem=nDiv
     %set Q to zero. Remark: Q(1) and Q(end), .i.e., the
     %components of Q corresponding to the fixed nodes are
     %computed in the post-process (see below).
-    Q=zeros(numNod,1);
+    Q(freeNod)=0.0;
     
     %Essential B.C.:
+    u=zeros(numNod,1);
     u(1)=0.0;
     u(numNod)=2.0;
     
@@ -67,10 +68,9 @@ for numElem=nDiv
     Q=K*u-F;
     
     %Error w.r.t. the exact solution.
-    U=f(nodes(:,1));
+    U=sol(nodes(:,1));
     error=norm(u-U,inf);%sub-inf norm (=max(abs(U-u))).
-    fprintf(1,'%9i%14.6e%14.6e\n',numElem,h,error)
+    fprintf(fout,'%9i%14.6e%14.6e\n',numElem,h,error);
 end
 fclose(fout);
 type('ErrorApprox.txt'); %print out the file to the CW.
-        

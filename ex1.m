@@ -21,7 +21,7 @@ end
 %Assembly of the global system.
 K=zeros(numNod);
 F=zeros(numNod,1);
-u=zeros(numNod,1);
+Q=zeros(numNod,1);
 for e=1:numElem
     x1=nodes(elem(e,1)); %1st. node of elem e.
     x2=nodes(elem(e,2)); %2nd. node of elem e.
@@ -40,9 +40,10 @@ freeNod=setdiff(1:numNod,fixedNod);
 %set Q to zero. Remark: Q(1) and Q(end), .i.e., the
 %components of Q corresponding to the fixed nodes are
 %computed in the post-process (see below).
-Q=zeros(numNod,1);
+Q(freeNod,1)=0.0;
 
 %Essential B.C.
+u=zeros(numNod,1);
 u(1)=0.0;
 u(numNod)=2.0;
 

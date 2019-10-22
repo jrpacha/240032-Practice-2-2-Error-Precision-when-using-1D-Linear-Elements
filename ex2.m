@@ -23,7 +23,7 @@ end
 %Assembly of the global system
 K=zeros(numNod);
 F=zeros(numNod,1);
-u=zeros(numNod,1);
+Q=zeros(numNod,1);
 Ke=a1/(3*h)*[7,-8,1;-8,16,-8;1,-8,7]+ ...
         a0*h/30*[4,2,-1;2,16,2;-1,2,4];
 Fe=ff*h/6.0*[1;4;1];
@@ -40,9 +40,10 @@ freeNod=setdiff(1:numNod,fixedNod);
 %set Q to zero. Remark: Q(1) and Q(end), .i.e., the
 %components of Q corresponding to the fixed nodes are
 %computed in the post-process (see below).
-Q=zeros(numNod,1);
+Q(freeNod,1)=0;
 
 %Essential B.C.
+u=zeros(numNod,1);
 u(1)=0.0;
 u(numNod)=2.0;
 
