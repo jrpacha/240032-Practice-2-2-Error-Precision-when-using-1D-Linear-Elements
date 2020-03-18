@@ -1,6 +1,4 @@
-# matlabSession-240032_21-10-2019
-
-## Matlab session Tuesday 21-10-2019
+# Practice 2.2
 
 ### P2.2 - Error Precision when using 1D linear elements. Session's source 
 code. 
