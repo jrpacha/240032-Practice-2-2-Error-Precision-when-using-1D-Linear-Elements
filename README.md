@@ -8,7 +8,7 @@ files---,vat Toni Susin's 'Numerical Factory',
 
 https://numfactory.upc.edu/numfactory/subjects/?subject=FEM&version=etseib&lang=en&section=2&subsection=P
 
-**Disclaimer:** this stuff is provided 'as is'. Please, chek it (just in 
+**Disclaimer:** this stuff is provided 'as is'. Please, check it (just in 
 case you find it useful), but it's worth you try to write all the programs 
 on your own.
 
