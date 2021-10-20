@@ -25,6 +25,7 @@ h=L/numElem;
 nodes=(a:0.5*h:b)';
 numNod=size(nodes,1);    
 elem=zeros(numElem,3); %Connectivity matrix
+elem1 = [(1:2:numNod-2)',(2:2:numNod-1)',(3:2:numNod)'];
 for e=1:numElem
     k=2*e-1;
     elem(e,:)=[k,k+1,k+2];
