@@ -1,4 +1,4 @@
-% Practice 2.2 Quiz 1
+% Practice 2.2 Quiz 1.
 % Consider the Boundary Value Problem (BVP)
 %
 % -((x+3)u')' + u = x, 0 < x < L,
