@@ -1,4 +1,3 @@
-% ex1.m
 clearvars
 close all
 
