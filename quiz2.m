@@ -9,9 +9,9 @@ close all
 a=0.0;
 b=2.0;
 
-a1=1.3;
-a0=-0.4;
-ff=0.0;
+a1=-1.3;  %Remark. In this case, we could multiply the equation by -1, and  
+a0= 0.4;  %then take a1=1.3 and a0=-0.4. Check it! 
+ff=0.0;  
 
 u0=1.3; %Boundary conditions
 duL=2;
