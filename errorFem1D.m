@@ -21,15 +21,15 @@ for numElem=nDiv
     h=L/numElem;
     nodes=a:h:b;
     nodes=nodes';
-    numNod=size(nodes,1);    
+    numNodes=size(nodes,1);    
     elem=zeros(numElem,2); %Connectivity matrix.
     for e=1:numElem
         elem(e,:)=[e,e+1];
     end
     %Assembly of the global system
-    K=zeros(numNod);
-    F=zeros(numNod,1);
-    Q=zeros(numNod,1);
+    K=zeros(numNodes);
+    F=zeros(numNodes,1);
+    Q=zeros(numNodes,1);
     Ke=a1/h*[1,-1;-1,1]+a0*h/6.0*[2,1;1,2];
         %Note: in this case in point, Ke is the same
         %      for all the elements.
@@ -43,26 +43,26 @@ for numElem=nDiv
         F(rows,1)=F(rows,1)+Fe;
     end
     
-    fixedNod=[1,numNod];
-    freeNod=setdiff(1:numNod,fixedNod);
+    fixedNodes=[1,numNodes];
+    freeNodes=setdiff(1:numNodes,fixedNodes);
     
     %Natural B.C.:
     %set Q to zero. Remark: Q(1) and Q(end), .i.e., the
     %components of Q corresponding to the fixed nodes are
     %computed in the post-process (see below).
-    Q(freeNod)=0.0;
+    Q(freeNodes)=0.0;
     
     %Essential B.C.:
-    u=zeros(numNod,1);
+    u=zeros(numNodes,1);
     u(1)=0.0;
-    u(numNod)=2.0;
+    u(numNodes)=2.0;
     
     %Reduced system
-    Qm=Q(freeNod)-K(freeNod,fixedNod)*u(fixedNod);
-    Fm=F(freeNod)+Qm;
-    Km=K(freeNod,freeNod);
+    Qm=Q(freeNodes)-K(freeNodes,fixedNodes)*u(fixedNodes);
+    Fm=F(freeNodes)+Qm;
+    Km=K(freeNodes,freeNodes);
     um=Km\Fm;
-    u(freeNod)=um;
+    u(freeNodes)=um;
     
     %Post process
     Q=K*u-F;
@@ -70,7 +70,7 @@ for numElem=nDiv
     %Error w.r.t. the exact solution.
     U=sol(nodes(:,1));
     error=norm(u-U,inf);%sub-inf norm (=max(abs(U-u))).
-    fprintf(fout,'%9i%14.6e%14.6e\n',numElem,h,error);
+    fprintf(fout,'%9d%14.6e%14.6e\n',numElem,h,error);
 end
 fclose(fout);
 type('ErrorApprox.txt'); %print out the file to the CW.
