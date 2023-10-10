@@ -28,10 +28,12 @@ K = zeros(numNodes);
 F = zeros(numNodes,1);
 Q = zeros(numNodes,1);
 
+%local stiffness matrix: the same for all the elements of lenght h
 Ke = a1*[7, -8, 1; -8, 16, -8; 1, -8, 7]/h/3.0 + ...
-    a0*h*[4, 2, -1; 2, 16, 2; -1, 2, 4]/30.0;  %local stiffness matrix
+    a0*h*[4, 2, -1; 2, 16, 2; -1, 2, 4]/30.0;  
 
-Fe = f*h*[1; 4; 1]/6.0;                        %local load vector 
+%local load vector: the same for all the elements of lenght h
+Fe = f*h*[1; 4; 1]/6.0;                        
    
 for e = 1:numElem
     rows = [elem(e,1); elem(e,2); elem(e,3)];
@@ -45,7 +47,7 @@ for e = 1:numElem
     % rows(3) holds the number of the global node corresponding to 
     %         the 3rd local node of element e 
     %
-    % Recall that elemet e is a quadratic element, so each element has
+    % Recall that elemet e is a **quadratic** element, so each element has
     % **three** nodes
 
     %The **local** stiffness matrix of element e must be added to the rows
@@ -62,7 +64,7 @@ end
 fixedNods = [1,numNodes];
 freeNods = setdiff(1:numNodes, fixedNods);
 
-% Natural B.C.
+%Natural B.C.
 Q(freeNods) = 0.0;
 
 %Essential B.C.

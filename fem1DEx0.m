@@ -33,7 +33,7 @@ for div = numDiv
     elem = [(1:numNodes-1)', (2:numNodes)'];
     numElem = size(elem,1);
 
-    %Stiffness matrix: the same for all the elements
+    %Stiffness matrix: the same for all the elements of length h
     Ke = a1*[1,-1; -1, 1]/h + a0*h*[2,1;1,2]/6;
 
     K = zeros(numNodes);
