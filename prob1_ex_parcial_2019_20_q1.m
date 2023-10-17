@@ -10,7 +10,7 @@ a = 0; b = pi;
 uA = 0; uB = 8;
 
 nodes = [0; pi/4; pi/2; pi];
-elem = [1,2,3; 3,4,0];
+elem = [1, 2, 3; 3, 4, 0];
 
 numNodes = size(nodes,1);
 numElem = size(elem, 1);
@@ -94,3 +94,47 @@ fprintf("\nSolution:\n")
 fprintf("%4s%14s%14s%14s\n",...
     'Nod.','x', 'U', 'Q')
 fprintf("%4d%14.4e%14.4e%14.4e\n",sols')
+
+%Approximation for the solution u at x = 3*pi/4 
+% x = 3pi/4 belongs to the second element, so
+xp = 3*pi/4;
+
+%Using the shape functions
+nods = elem(2,1:2); %num of nodes of element 2
+X = nodes(nods);    %positions of nodes of elem 2
+
+Psi21 = @(t) (t-X(2))/(X(1)-X(2));
+Psi22 = @(t) (t-X(1))/(X(2)-X(1));
+interpU = u(nods(1))*Psi21(xp) + ...
+    u(nods(2))*Psi22(xp);
+fprintf('\nInterpolated value of u at x = 3 pi /4:\n')
+fprintf('Using shape functions: U_interp = %10.4e\n',interpU)
+
+%Using polyfit
+U = u(nods);
+p = polyfit(X,U,1);
+interpU = polyval(p, xp);
+
+fprintf('Using polyfit: U_interp = %10.4e\n',interpU)
+
+%Approximation for the solution u at x = pi/8 
+% x = pi/8 belongs to the first element, so
+xp = pi/8;
+nods = elem(1,:);
+X = nodes(nods);
+
+Psi11 = @(t) ((t-X(2))*(t-X(3)))/((X(1)-X(2))*(X(1)-X(3)));
+Psi12 = @(t) ((t-X(1))*(t-X(3)))/((X(2)-X(1))*(X(2)-X(3)));
+Psi13 = @(t) ((t-X(1))*(t-X(2)))/((X(3)-X(1))*(X(3)-X(2)));
+interpU = u(nods(1))*Psi11(xp) + ...
+    u(nods(2))*Psi12(xp) + ...
+    u(nods(3))*Psi13(xp);
+fprintf('\nInterpolated value of u at x = pi /8:\n')
+fprintf('Using shape functions U_interp = %10.4e\n',interpU)
+
+%Using polyfit
+U = u(nods);
+p = polyfit(X,U,2);
+interpU = polyval(p, xp);
+
+fprintf('Using polyfit: U_interp = %10.4e\n',interpU)
