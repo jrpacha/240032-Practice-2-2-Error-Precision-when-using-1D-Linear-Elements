@@ -1,5 +1,3 @@
-% This is another small change
-
 % Practice 2.2 Quiz 2
 % Compute the value at the point x = 1 for the solution of the differential
 % equation 1.3 u'' + 0.4 u = 0, for 0 < x < 2 with boundary conditions u(0) 
