@@ -63,7 +63,7 @@ Q(2:numNodes-1)=0.0; %Not necessary: Q was initialised to zero
 Q(numNodes)=a1*duL;
 
 %Essential B.C.
-u(fixedNods)=u0;
+u(1)=u0;
 
 %Reduced system
 Qm=Q(freeNods)+F(freeNods)-K(freeNods,fixedNods)*u(fixedNods);
