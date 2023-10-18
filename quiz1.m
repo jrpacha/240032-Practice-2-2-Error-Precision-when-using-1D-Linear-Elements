@@ -51,8 +51,8 @@ freeNods=setdiff(1:numNodes,fixedNods);
 u=zeros(numNodes,1);
 
 %Natural B.C.
-Q(1)=-alpha*du0;
 Q(2:numNodes-1)=0; %Not necessary: Q is initialised to 0
+Q(1)=-alpha*du0;
 
 %Essential B.C.
 u(fixedNods)=uL;
