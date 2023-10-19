@@ -1,3 +1,6 @@
+% Ex Parcial 2019-20 1Q 
+% Problem 1
+
 clearvars
 close all
 
